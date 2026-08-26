@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCARINA — Reconstruire la circulation océanique profonde des interglaciaires passés</title>
+<meta name="description" content="OCARINA combine données paléoclimatiques (SST, δ13C) et modèle climatique LOVECLIM pour livrer la première reconstruction quantitative de la circulation océanique (AMOC) durant les interglaciaires MIS 7 et 9.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ================= NAVIGATION FIXE ================= -->
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="#" class="nav__brand">
+      <svg class="nav__mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="15" cy="15" r="13.5" stroke="#B8875A" stroke-width="1.4"/>
+        <path d="M4 15 C 10 8, 20 22, 26 15" stroke="#7C93A3" stroke-width="1.4" fill="none"/>
+      </svg>
+      OCARINA
+    </a>
+
+    <nav aria-label="Navigation principale">
+      <ul class="nav__links">
+        <li><a href="#projet">Le projet</a></li>
+        <li><a href="#methodologie">Méthodologie</a></li>
+        <li><a href="#equipe">Équipe</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#actualites">Actualités</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav__right">
+      <div class="lang-toggle" role="group" aria-label="Langue">
+        <button type="button" aria-pressed="true">FR</button>
+        <button type="button" aria-pressed="false" disabled title="Bientôt disponible">EN</button>
+      </div>
+      <a href="#contact" class="btn btn--outline">Contact</a>
+    </div>
+  </div>
+</header>
+
+<!-- Bandeau institutionnel (logos à intégrer : UE, MSCA, UCLouvain) -->
+<div class="inst-strip" aria-label="Financement et institution d'accueil">
+  <span>Financé par l'Union européenne — MSCA</span>
+  <span>·</span>
+  <span>UCLouvain — Earth &amp; Life Institute</span>
+</div>
+
+<!-- Frise de progression, rappel discret de l'échelle temporelle -->
+<div class="progress-ribbon" aria-hidden="true">
+  <div class="progress-ribbon__fill" id="progressFill"></div>
+</div>
+
+<!-- ================= HERO — 3 BANDES ================= -->
+<main>
+<section class="hero">
+  <div class="wrap">
+
+    <!-- Bande 1 : carottes sédimentaires — entre depuis la droite -->
+    <div class="band band--core" aria-hidden="false">
+      <div class="band--core__media">
+        <!-- TODO : remplacer par une vraie photo macro de carotte sédimentaire (IODP / ECORD, vérifier licence + crédit) -->
+        <span class="band--core__placeholder">Photo carotte sédimentaire — à intégrer</span>
+      </div>
+    </div>
+
+    <!-- Bande 2 : grille de sorties de modèles (ensemble de particules) — entre depuis la gauche -->
+    <div class="band band--models">
+      <div class="band--models__grid" id="ensembleGrid" aria-hidden="true">
+        <!-- généré en JS : petites projections stylisées représentant l'ensemble de simulations -->
+      </div>
+    </div>
+
+    <!-- Bande 3 : nom du projet + descriptif -->
+    <div class="band band--intro">
+      <div class="band--intro__inner">
+        <p class="eyebrow">Bourse MSCA Postdoctoral Fellowship — UCLouvain</p>
+        <h1>OCARINA relie les <em>données</em> et les <em>modèles</em> pour reconstruire l'océan profond du passé.</h1>
+        <p>
+          En intégrant des reconstructions haute résolution de température de surface et de δ13C
+          dans le modèle climatique LOVECLIM par assimilation de données, le projet livre la
+          première reconstruction quantitativement contrainte de la circulation méridienne
+          atlantique (AMOC) durant les interglaciaires chauds MIS 7 et 9.
+        </p>
+        <div class="band--intro__actions">
+          <a href="#projet" class="btn btn--outline">Découvrir le projet</a>
+          <a href="#methodologie" class="btn btn--text">Voir la méthodologie →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= SECTION TIMELINE 800 ka ================= -->
+<section class="timeline-section" id="contexte">
+  <div class="wrap">
+    <div class="timeline-section__head">
+      <p class="eyebrow">Contexte</p>
+      <h2>800 000 ans de climat, deux fenêtres d'étude, un présent hors norme.</h2>
+      <p>
+        MIS 7 et MIS 9 comptent parmi les périodes les plus chaudes des derniers 800 000 ans,
+        avec des niveaux d'insolation et de CO2 parmi les plus élevés de la période. Elles
+        offrent des analogues naturels pour comprendre la sensibilité de l'AMOC — alors que
+        le forçage actuel dépasse déjà tout ce que ces interglaciaires ont connu.
+      </p>
+    </div>
+
+    <div class="timeline-chart">
+      <svg id="timelineSvg" viewBox="0 0 1000 260" preserveAspectRatio="none" role="img"
+           aria-label="Schéma d'évolution du CO2 et de la température sur 800 000 ans, mettant en évidence MIS 7, MIS 9 et le pic actuel">
+        <!-- généré / affiné en JS -->
+      </svg>
+      <p class="timeline-chart__caption">
+        Schéma illustratif — à remplacer par les synthèses SST / CO2 réelles (EPICA Dome C, compilations MIS 7 &amp; 9). MIS 9 : 340–315 ka · MIS 7 : 250–230 ka.
+      </p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer" id="contact">
+  <div class="wrap footer__grid">
+    <div>
+      <p class="eyebrow">OCARINA</p>
+      <p style="margin-top:0.5rem;">Earth and Life Institute — UCLouvain<br>Louvain-la-Neuve, Belgique</p>
+    </div>
+    <div class="footer__funding">
+      <!-- TODO : texte de financement officiel MSCA + emblème UE conforme aux
+           règles de visibilité Horizon Europe (taille min., zone de protection) -->
+      Ce projet a reçu un financement du programme de recherche et d'innovation
+      de l'Union européenne au titre des actions Marie Skłodowska-Curie.
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

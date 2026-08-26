@@ -1,0 +1,512 @@
+/* ============================================================
+   OCARINA — Design tokens
+   Palette dérivée des carottes sédimentaires (ocre/terre) et du
+   contraste glaciaire/interglaciaire (bleu-gris froid), avec un
+   rouge réservé exclusivement au marqueur "aujourd'hui" sur la
+   frise CO2/température.
+   ============================================================ */
+
+:root {
+  /* Couleurs */
+  --color-bg: #1c1a17;          /* fond principal, brun-noir profond */
+  --color-bg-deep: #121110;     /* fond encore plus sombre, transitions */
+  --color-core: #b8875a;        /* ocre carotte sédimentaire */
+  --color-core-deep: #6b4a2e;   /* ocre foncé, profondeur */
+  --color-glacial: #7c93a3;     /* bleu-gris glaciaire / modèles */
+  --color-glacial-deep: #3d4c56;/* bleu-gris foncé */
+  --color-alert: #c73e1d;       /* rouge brique — réservé au marqueur "aujourd'hui" */
+  --color-paper: #f2efe7;       /* blanc cassé, texte clair */
+  --color-paper-dim: #cfc9bd;   /* texte secondaire sur fond sombre */
+  --color-line: rgba(242, 239, 231, 0.14); /* lignes/séparateurs discrets */
+
+  /* Typographie */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* Échelle */
+  --step-eyebrow: 0.8125rem;
+  --step-body: 1.0625rem;
+  --step-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  --step-h2: clamp(2.1rem, 1.6rem + 2vw, 3.2rem);
+  --step-h1: clamp(2.6rem, 1.8rem + 3.4vw, 4.6rem);
+
+  /* Rythme */
+  --radius-capsule: 240px;
+  --radius-soft: 20px;
+  --nav-height: 76px;
+  --ribbon-height: 3px;
+  --max-width: 1320px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+
+  /* Mouvement */
+  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-band: 900ms;
+}
+
+/* ============================================================
+   Reset minimal
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-core);
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  margin-inline: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-inline: var(--gutter);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-core);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   Navigation fixe
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  background: rgba(28, 26, 23, 0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.nav__inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  color: var(--color-paper);
+}
+
+.nav__mark {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 2.1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__links a {
+  text-decoration: none;
+  font-size: 0.92rem;
+  color: var(--color-paper-dim);
+  transition: color 200ms ease;
+}
+
+.nav__links a:hover { color: var(--color-paper); }
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.lang-toggle {
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lang-toggle button {
+  background: none;
+  border: none;
+  color: var(--color-paper-dim);
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.lang-toggle button[aria-pressed="true"] {
+  background: var(--color-core);
+  color: var(--color-bg-deep);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.65rem 1.3rem;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn--outline {
+  border: 1px solid var(--color-glacial);
+  color: var(--color-paper);
+  background: transparent;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.btn--outline:hover {
+  border-color: var(--color-core);
+  background: rgba(184, 135, 90, 0.08);
+}
+
+.btn--text {
+  color: var(--color-paper-dim);
+  padding-inline: 0.2rem;
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 4px;
+}
+
+.btn--text:hover { color: var(--color-paper); }
+
+/* Institutional strip (logos UE / MSCA / UCLouvain) */
+.inst-strip {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  z-index: 49;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  height: 34px;
+  background: var(--color-bg-deep);
+  border-bottom: 1px solid var(--color-line);
+  padding-inline: var(--gutter);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--color-paper-dim);
+  text-transform: uppercase;
+}
+
+.inst-strip span { opacity: 0.75; }
+
+/* Frise de progression (rappel discret de l'échelle 800 ka) */
+.progress-ribbon {
+  position: fixed;
+  top: calc(var(--nav-height) + 34px);
+  left: 0;
+  right: 0;
+  height: var(--ribbon-height);
+  z-index: 48;
+  background: var(--color-line);
+}
+
+.progress-ribbon__fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-glacial), var(--color-core) 70%, var(--color-alert));
+  transition: width 80ms linear;
+}
+
+/* ============================================================
+   Hero — trois bandes
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding-top: calc(var(--nav-height) + 34px + var(--ribbon-height) + 3.5rem);
+  padding-bottom: 6rem;
+  overflow: hidden;
+}
+
+.band {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Bande 1 — carottes sédimentaires, entre depuis la droite */
+.band--core {
+  height: 320px; /* repli pour moteurs sans support de clamp() */
+  height: clamp(220px, 34vw, 400px);
+  margin-left: 14%;
+  border-radius: var(--radius-capsule) 0 0 var(--radius-capsule);
+  background: var(--color-core-deep);
+  transform: translateX(60px);
+  opacity: 0;
+  animation: slide-in-right var(--dur-band) var(--ease-out-strong) forwards;
+  animation-delay: 150ms;
+}
+
+.band--core__media {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(
+      100deg,
+      #a9794c 0px, #a9794c 22px,
+      #8f6238 22px, #8f6238 46px,
+      #c79a68 46px, #c79a68 60px,
+      #74502e 60px, #74502e 88px
+    );
+}
+
+.band--core__placeholder {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: rgba(28, 26, 23, 0.65);
+  background: rgba(242, 239, 231, 0.82);
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+/* Bande 2 — grille de sorties de modèles, entre depuis la gauche */
+.band--models {
+  height: 280px; /* repli pour moteurs sans support de clamp() */
+  height: clamp(200px, 30vw, 360px);
+  width: 78%;
+  margin-top: -2.5rem;
+  border-radius: 0 var(--radius-capsule) var(--radius-capsule) 0;
+  background: linear-gradient(120deg, var(--color-glacial-deep), var(--color-glacial));
+  transform: translateX(-60px);
+  opacity: 0;
+  animation: slide-in-left var(--dur-band) var(--ease-out-strong) forwards;
+  animation-delay: 450ms;
+  z-index: 2;
+}
+
+.band--models__grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1px;
+  padding: 1.5rem 3rem;
+}
+
+.ensemble-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ensemble-cell svg { width: 78%; height: 78%; opacity: 0.85; }
+
+/* Bande 3 — nom du projet + descriptif, pleine largeur */
+.band--intro {
+  margin-top: -3rem;
+  border-radius: var(--radius-soft);
+  background: linear-gradient(135deg, var(--color-bg-deep), #2a2521 55%, var(--color-core-deep));
+  padding: clamp(2.2rem, 5vw, 4rem);
+  opacity: 0;
+  transform: translateY(24px);
+  animation: rise-in 700ms var(--ease-out-strong) forwards;
+  animation-delay: 800ms;
+}
+
+.band--intro__inner {
+  max-width: 720px;
+}
+
+.band--intro h1 {
+  font-size: var(--step-h1);
+  margin-top: 0.6rem;
+  margin-bottom: 1.1rem;
+  color: var(--color-paper);
+}
+
+.band--intro h1 em {
+  font-style: normal;
+  color: var(--color-core);
+}
+
+.band--intro p {
+  color: var(--color-paper-dim);
+  font-size: 1.05rem;
+  max-width: 56ch;
+  margin-bottom: 2rem;
+}
+
+.band--intro__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-60px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes rise-in {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band--core, .band--models, .band--intro {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Section timeline — 800 ka de température / CO2
+   ============================================================ */
+
+.timeline-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.timeline-section__head {
+  max-width: 640px;
+  margin-bottom: 3rem;
+}
+
+.timeline-section__head h2 {
+  color: var(--color-paper);
+  margin-top: 0.6rem;
+}
+
+.timeline-section__head p {
+  color: var(--color-paper-dim);
+  margin-top: 1rem;
+}
+
+.timeline-chart {
+  position: relative;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-soft);
+  padding: 2.5rem clamp(1.2rem, 4vw, 3rem) 1.5rem;
+  background: var(--color-bg-deep);
+}
+
+.timeline-chart svg { width: 100%; height: auto; overflow: visible; }
+
+.timeline-chart__caption {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-paper-dim);
+  letter-spacing: 0.04em;
+  margin-top: 1rem;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.footer {
+  border-top: 1px solid var(--color-line);
+  padding-block: 3rem;
+  font-size: 0.85rem;
+  color: var(--color-paper-dim);
+}
+
+.footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.footer__funding {
+  max-width: 560px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 860px) {
+  .nav__links { display: none; }
+  .inst-strip { justify-content: center; }
+
+  .band--core { margin-left: 4%; height: 220px; }
+  .band--models { width: 92%; margin-top: -1.5rem; height: 200px; }
+  .band--models__grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); padding: 1rem 1.4rem; }
+  .band--intro { margin-top: -2rem; }
+}
