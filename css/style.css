@@ -727,6 +727,8 @@ h1, h2, h3 {
   .project-identity__logo img { max-width: 160px; margin-inline: auto; }
 
   .ro-block { flex-direction: column; align-items: stretch; }
+  .ro-block__text { order: 1; }
+  .ro-block__media { order: 2; }
 }
 
 /* ============================================================
