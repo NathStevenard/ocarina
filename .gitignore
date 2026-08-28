@@ -1,0 +1,11 @@
+# Fichiers sources volumineux (vidéo brute, vignettes d'aperçu) —
+# uniquement les livrables encodés (assets/video/) sont commités.
+assets/raw/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE / OS
+.idea/
+.DS_Store

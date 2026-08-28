@@ -1,0 +1,1224 @@
+/* ============================================================
+   OCARINA — Design tokens
+   Palette dérivée des carottes sédimentaires (ocre/terre) et du
+   contraste glaciaire/interglaciaire (bleu-gris froid), avec un
+   rouge réservé exclusivement au marqueur "aujourd'hui" sur la
+   frise CO2/température.
+   ============================================================ */
+
+:root {
+  /* Couleurs */
+  --color-bg: #1c1a17;          /* fond principal, brun-noir profond */
+  --color-bg-deep: #121110;     /* fond encore plus sombre, transitions */
+  --color-core: #b8875a;        /* ocre carotte sédimentaire */
+  --color-core-deep: #6b4a2e;   /* ocre foncé, profondeur */
+  --color-glacial: #7c93a3;     /* bleu-gris glaciaire / modèles */
+  --color-glacial-deep: #3d4c56;/* bleu-gris foncé */
+  --color-alert: #c73e1d;       /* rouge brique — réservé au marqueur "aujourd'hui" */
+  --color-paper: #f2efe7;       /* blanc cassé, texte clair */
+  --color-paper-dim: #cfc9bd;   /* texte secondaire sur fond sombre */
+  --color-line: rgba(242, 239, 231, 0.14); /* lignes/séparateurs discrets */
+
+  /* Typographie */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* Échelle */
+  --step-eyebrow: 0.8125rem;
+  --step-body: 1.0625rem;
+  --step-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  --step-h2: clamp(2.1rem, 1.6rem + 2vw, 3.2rem);
+  --step-h1: clamp(2.6rem, 1.8rem + 3.4vw, 4.6rem);
+
+  /* Rythme */
+  --radius-capsule: 240px;
+  --radius-soft: 20px;
+  --nav-height: 76px;
+  --ribbon-height: 3px;
+  --max-width: 1320px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+
+  /* Mouvement */
+  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-band: 1800ms;
+}
+
+/* ============================================================
+   Reset minimal
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-core);
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  margin-inline: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-inline: var(--gutter);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-core);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   Navigation fixe
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  background: rgba(28, 26, 23, 0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.nav__inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  color: var(--color-paper);
+}
+
+/* Recadre uniquement le drapeau (~30% gauche) du logo UE horizontal, qui
+   contient aussi le texte "Funded by..." qu'on ne veut pas ici. Utilise
+   background-image plutôt qu'un <img> en position:absolute (repli plus
+   robuste, sans dépendre du calcul auto de largeur d'un remplacé). */
+.nav__eu-flag {
+  /* 36px (et non 32px) : le rectangle bleu se termine à 32,6px une fois
+     l'image mise à l'échelle sur 24px de haut — un crop à 32px tombait
+     donc DANS le bleu, juste avant la fine marge blanche qui l'entoure
+     (visible en haut/bas/gauche mais coupée à droite). 36px inclut cette
+     marge des quatre côtés. */
+  display: inline-block;
+  width: 36px;
+  height: 24px;
+  flex-shrink: 0;
+  background-image: url("../assets/EN_FundedbytheEU_RGB_POS.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 107.72px 24px; /* image entière mise à l'échelle sur 24px de haut */
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 2.1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__links a {
+  text-decoration: none;
+  font-size: 0.92rem;
+  color: var(--color-paper-dim);
+  transition: color 200ms ease;
+}
+
+.nav__links a:hover { color: var(--color-paper); }
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.lang-toggle {
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lang-toggle button {
+  background: none;
+  border: none;
+  color: var(--color-paper-dim);
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.lang-toggle button[aria-pressed="true"] {
+  background: var(--color-core);
+  color: var(--color-bg-deep);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.65rem 1.3rem;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn--outline {
+  border: 1px solid var(--color-glacial);
+  color: var(--color-paper);
+  background: transparent;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.btn--outline:hover {
+  border-color: var(--color-core);
+  background: rgba(184, 135, 90, 0.08);
+}
+
+.btn--text {
+  color: var(--color-paper-dim);
+  padding-inline: 0.2rem;
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 4px;
+}
+
+.btn--text:hover { color: var(--color-paper); }
+
+/* Institutional strip (logos UE / MSCA / UCLouvain) */
+.inst-strip {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  z-index: 49;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  height: 34px;
+  background: var(--color-bg-deep);
+  border-bottom: 1px solid var(--color-line);
+  padding-inline: var(--gutter);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--color-paper-dim);
+  text-transform: uppercase;
+}
+
+.inst-strip span { opacity: 0.75; }
+
+.inst-strip__logos {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.inst-strip__text {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.inst-strip__logo {
+  height: 20px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Frise de progression (rappel discret de l'échelle 800 ka) */
+.progress-ribbon {
+  position: fixed;
+  top: calc(var(--nav-height) + 34px);
+  left: 0;
+  right: 0;
+  height: var(--ribbon-height);
+  z-index: 48;
+  background: var(--color-line);
+}
+
+.progress-ribbon__fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-glacial), var(--color-core) 70%, var(--color-alert));
+  transition: width 80ms linear;
+}
+
+/* ============================================================
+   Hero — trois bandes
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding-top: calc(var(--nav-height) + 34px + var(--ribbon-height) + 1.5rem);
+  padding-bottom: 3.5rem;
+  overflow: hidden;
+}
+
+.band {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Bande 1 — carottes sédimentaires, entre depuis la droite */
+.band--core {
+  height: 190px; /* repli pour moteurs sans support de clamp() */
+  height: clamp(150px, 20vw, 260px);
+  margin-left: 14%;
+  border-radius: var(--radius-capsule) 0 0 var(--radius-capsule);
+  background: var(--color-core-deep);
+  transform: translateX(60px);
+  opacity: 0;
+  animation: slide-in-right var(--dur-band) var(--ease-out-strong) forwards;
+  animation-delay: 300ms;
+}
+
+.band--core__media {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(
+      100deg,
+      #a9794c 0px, #a9794c 22px,
+      #8f6238 22px, #8f6238 46px,
+      #c79a68 46px, #c79a68 60px,
+      #74502e 60px, #74502e 88px
+    );
+}
+
+.band--core__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.band--core__credit {
+  /* Centré (plutôt que dans un coin littéral) : la bande bleeds hors du
+     viewport à droite et sa capsule est très arrondie à gauche (rayon =
+     moitié de la hauteur), donc tout badge ancré à un coin s'y retrouve
+     rogné. Le centre bas reste toujours dans la zone visible et plate.
+     bottom: 2rem (et non un simple 0.8rem) pour rester au-dessus de la
+     zone où la bande--models suivante chevauche verticalement bande--core
+     (son margin-top négatif de 1.5rem + son z-index:2) — sinon le bas du
+     badge se retrouve peint dessous, invisible. */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 2rem;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--color-paper);
+  background: rgba(18, 17, 16, 0.62);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Bande 2 — grille de sorties de modèles, entre depuis la gauche */
+.band--models {
+  height: 160px; /* repli pour moteurs sans support de clamp() */
+  height: clamp(130px, 16vw, 220px);
+  width: 78%;
+  margin-top: -1.5rem;
+  border-radius: 0 var(--radius-capsule) var(--radius-capsule) 0;
+  background: linear-gradient(120deg, var(--color-glacial-deep), var(--color-glacial));
+  transform: translateX(-60px);
+  opacity: 0;
+  animation: slide-in-left var(--dur-band) var(--ease-out-strong) forwards;
+  animation-delay: 900ms;
+  z-index: 2;
+}
+
+.band--models__grid {
+  position: absolute;
+  inset: 0;
+}
+
+.band--models__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+}
+
+.band--models__credit {
+  /* Ancré en bas-GAUCHE : contrairement à bande--core, c'est ici le côté
+     droit de la capsule qui est arrondi (border-radius de .band--models),
+     donc le côté gauche est plat et sans risque de rognage par la courbe.
+     .band--models a déjà z-index:2 (le plus élevé de ses voisines), donc
+     pas de risque d'être recouvert par le chevauchement inter-bandes. */
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.8rem;
+  z-index: 1;
+  max-width: min(85%, 22rem);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--color-paper);
+  background: rgba(18, 17, 16, 0.62);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+}
+
+.ensemble-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ensemble-cell svg { width: 78%; height: 78%; opacity: 0.85; }
+
+/* Bande 3 — nom du projet + descriptif, pleine largeur */
+.band--intro {
+  margin-top: -2rem;
+  border-radius: var(--radius-soft);
+  background: linear-gradient(135deg, var(--color-bg-deep), #2a2521 55%, var(--color-core-deep));
+  padding: clamp(2.2rem, 5vw, 4rem);
+  opacity: 0;
+  transform: translateY(24px);
+  animation: rise-in 1400ms var(--ease-out-strong) forwards;
+  animation-delay: 1600ms;
+}
+
+.band--intro__inner {
+  max-width: 720px;
+}
+
+.band--intro h1 {
+  font-size: var(--step-h1);
+  margin-top: 0.6rem;
+  margin-bottom: 1.1rem;
+  color: var(--color-paper);
+}
+
+.band--intro h1 em {
+  font-style: normal;
+  color: var(--color-core);
+}
+
+.band--intro p {
+  color: var(--color-paper-dim);
+  font-size: 1.05rem;
+  max-width: 56ch;
+  margin-bottom: 2rem;
+}
+
+.band--intro__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-60px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes rise-in {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band--core, .band--models, .band--intro {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Section timeline — 800 ka de température / CO2
+   ============================================================ */
+
+.timeline-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.timeline-section__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  margin-bottom: 3rem;
+}
+
+.timeline-section__head-text {
+  max-width: 640px;
+}
+
+.timeline-section__head-text h2 {
+  color: var(--color-paper);
+  margin-top: 0.6rem;
+}
+
+.timeline-section__head-text p {
+  color: var(--color-paper-dim);
+  margin-top: 1rem;
+}
+
+.timeline-section__stats {
+  display: none;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin: 0;
+  padding-top: 2.2rem;
+  text-align: right;
+}
+
+.timeline-section__stats dt {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-core);
+}
+
+.timeline-section__stats dd {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--color-paper-dim);
+  text-transform: uppercase;
+}
+
+@media (min-width: 1100px) {
+  .timeline-section__stats { display: flex; }
+}
+
+.timeline-chart {
+  position: relative;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-soft);
+  padding: 2.5rem clamp(1.2rem, 4vw, 3rem) 1.5rem;
+  background: var(--color-bg-deep);
+}
+
+.timeline-chart svg { width: 100%; height: auto; overflow: visible; }
+
+.timeline-chart__error {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-alert);
+  background: rgba(199, 62, 29, 0.08);
+  border: 1px solid rgba(199, 62, 29, 0.3);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin: 0;
+}
+
+.timeline-chart__caption {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-paper-dim);
+  letter-spacing: 0.04em;
+  margin-top: 1rem;
+}
+
+/* ============================================================
+   Section "Le projet"
+   ============================================================ */
+
+.project-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  border-top: 1px solid var(--color-line);
+  /* Compense le header fixe (nav + bandeau institutionnel + frise) pour
+     que l'ancre #projet ne s'arrête pas sous ces éléments superposés. */
+  scroll-margin-top: calc(var(--nav-height) + 34px + var(--ribbon-height));
+}
+
+/* Panel d'identité */
+.project-identity {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-soft);
+  background: var(--color-bg-deep);
+  padding: clamp(2rem, 4vw, 3rem);
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.project-identity__text { flex: 1 1 auto; }
+
+.project-identity__title {
+  font-size: var(--step-h2);
+  color: var(--color-paper);
+  margin-top: 0.6rem;
+}
+
+.project-identity__acronym {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-paper-dim);
+}
+
+.project-identity__text > p:last-child {
+  color: var(--color-paper-dim);
+  margin-top: 1.2rem;
+  max-width: 60ch;
+}
+
+.project-identity__logo {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-identity__logo img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+}
+
+/* Paragraphe innovation */
+.project-innovation {
+  max-width: 70ch;
+  color: var(--color-paper-dim);
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* Apparition au scroll, réutilisée par tout bloc marqué [data-reveal]
+   (blocs RO de "Le projet", blocs de "Méthodologie", etc.) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 700ms var(--ease-out-strong), transform 700ms var(--ease-out-strong);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Blocs objectifs de recherche (RO1/RO2/RO3), alternés */
+.ro-block {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.ro-block__text { flex: 1 1 50%; }
+
+.ro-block__text h3 {
+  font-size: var(--step-h3);
+  color: var(--color-paper);
+  margin-top: 0.6rem;
+}
+
+.ro-block__text p {
+  color: var(--color-paper-dim);
+  margin-top: 1rem;
+}
+
+.ro-block__media {
+  flex: 1 1 50%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-soft);
+  overflow: hidden;
+}
+
+.ro-block__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 860px) {
+  .project-identity { flex-direction: column; align-items: stretch; }
+  .project-identity__logo img { max-width: 160px; margin-inline: auto; }
+
+  .ro-block { flex-direction: column; align-items: stretch; }
+}
+
+/* ============================================================
+   Section "Méthodologie"
+   ============================================================ */
+
+.method-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  border-top: 1px solid var(--color-line);
+  scroll-margin-top: calc(var(--nav-height) + 34px + var(--ribbon-height));
+}
+
+.method-block {
+  max-width: 78ch;
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+.method-block:first-child { margin-top: 0; }
+
+.method-block h2 {
+  font-size: var(--step-h3);
+  color: var(--color-paper);
+  margin-top: 0.6rem;
+}
+
+.method-block > p {
+  color: var(--color-paper-dim);
+  margin-top: 1rem;
+}
+
+/* Mini liste points forts / limites */
+.pros-cons {
+  display: flex;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  margin-top: 1.6rem;
+}
+
+.pros-cons__col { flex: 1 1 50%; }
+
+.pros-cons__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-paper-dim);
+}
+
+.pros-cons__col--limits .pros-cons__label { color: var(--color-glacial); }
+
+.pros-cons__col ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--color-paper-dim);
+}
+
+.pros-cons__col li { margin-top: 0.4rem; }
+
+/* Visuel pleine largeur (réutilise le style de .timeline-chart) */
+.method-visual { margin-top: 2rem; }
+
+.method-visual__img {
+  width: 100%;
+  height: auto;
+  background: var(--color-bg-deep);
+}
+
+/* Liens de citation inline dans les paragraphes de méthodologie */
+.method-block p a,
+.method-outro a {
+  color: var(--color-core);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 3px;
+}
+
+.method-block p a:hover,
+.method-outro a:hover {
+  color: var(--color-paper);
+}
+
+/* Fondu enchaîné obs -> ensemble -> ensemble pondéré (bloc Assimilation) */
+.assim-crossfade {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.assim-crossfade__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1200ms ease;
+}
+
+.assim-crossfade__img.is-active { opacity: 1; }
+
+.assim-crossfade__label {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--color-paper);
+  background: rgba(18, 17, 16, 0.62);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transition: opacity 400ms ease;
+}
+
+.method-outro {
+  max-width: 70ch;
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  color: var(--color-paper-dim);
+}
+
+@media (max-width: 860px) {
+  .pros-cons { flex-direction: column; gap: 1.4rem; }
+}
+
+/* ============================================================
+   Section "Équipe"
+   ============================================================ */
+
+.team-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  border-top: 1px solid var(--color-line);
+  scroll-margin-top: calc(var(--nav-height) + 34px + var(--ribbon-height));
+}
+
+.team-group { margin-top: clamp(3.5rem, 7vw, 5.5rem); }
+
+.team-group:first-child { margin-top: 0; }
+
+/* Encadrement — lignes horizontales pleine largeur (texte + petite photo
+   ronde), séparées par un simple filet, dans le même esprit visuel que
+   la liste "Collaborateurs externes" juste en dessous : pas de carte
+   encadrée, juste des lignes + séparateurs fins pour toute la section. */
+.team-rows { margin-top: 1.6rem; }
+
+.team-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.8rem, 4vw, 2.5rem) 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.team-row__text { flex: 1 1 auto; min-width: 0; }
+
+.team-row__name {
+  font-size: var(--step-h3);
+  color: var(--color-paper);
+}
+
+.team-row__role {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-core);
+  margin-top: 0.5rem;
+}
+
+.team-row__bio {
+  color: var(--color-paper-dim);
+  margin-top: 1rem;
+}
+
+.team-row__link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--color-paper);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 3px;
+}
+
+.team-row__link:hover { color: var(--color-core); }
+
+.team-row__photo {
+  /* Taille fixe (plutôt qu'aspect-ratio) : à cette petite taille, le
+     rendu est simple et sans ambiguïté avec la mise en page flex. */
+  flex: 0 0 auto;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.team-row__photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Collaborateurs externes — traitement délibérément allégé : liste
+   compacte séparée par de simples filets, sans carte ni photo, pour
+   marquer visuellement un niveau de détail moindre que l'encadrement. */
+.collab-list {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+}
+
+.collab-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 1rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.collab-list__item:last-child { border-bottom: 1px solid var(--color-line); }
+
+.collab-list__name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-paper);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 3px;
+}
+
+.collab-list__name:hover { color: var(--color-core); }
+
+.collab-list__affiliation {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  color: var(--color-paper-dim);
+}
+
+.collab-list__expertise {
+  width: 100%;
+  margin: 0.3rem 0 0;
+  color: var(--color-paper-dim);
+}
+
+@media (max-width: 640px) {
+  .team-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .team-row__photo {
+    order: -1; /* photo au-dessus du texte malgré l'ordre du DOM */
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.2rem; /* centrée */
+  }
+}
+
+/* ============================================================
+   Section "Publications"
+   ============================================================ */
+
+.publications-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  border-top: 1px solid var(--color-line);
+  scroll-margin-top: calc(var(--nav-height) + 34px + var(--ribbon-height));
+}
+
+.publications-empty {
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.publications-empty h2 {
+  font-size: var(--step-h2);
+  color: var(--color-paper);
+  margin-top: 0.6rem;
+}
+
+.publications-empty p {
+  color: var(--color-paper-dim);
+  margin-top: 1rem;
+}
+
+.publications-empty p a {
+  color: var(--color-core);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 3px;
+}
+
+.publications-empty p a:hover { color: var(--color-paper); }
+
+/* ============================================================
+   Section "Actualités"
+   ============================================================ */
+
+.news-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  border-top: 1px solid var(--color-line);
+  scroll-margin-top: calc(var(--nav-height) + 34px + var(--ribbon-height));
+}
+
+.news-intro { max-width: 640px; }
+
+.news-intro h2 {
+  font-size: var(--step-h2);
+  color: var(--color-paper);
+  margin-top: 0.6rem;
+}
+
+.news-intro p {
+  color: var(--color-paper-dim);
+  margin-top: 1rem;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2rem);
+  margin-top: 2.5rem;
+}
+
+/* Carte actualité — même traitement de conteneur que les autres cards du site */
+.news-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-soft);
+  background: var(--color-bg-deep);
+  overflow: hidden; /* clippe l'image sur les coins supérieurs uniquement */
+}
+
+.news-card__img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+}
+
+.news-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(1.4rem, 3vw, 1.8rem);
+}
+
+.news-card__date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--color-paper-dim);
+}
+
+.news-card__title {
+  font-size: var(--step-h3);
+  color: var(--color-paper);
+  margin-top: 0.8rem;
+}
+
+.news-card__text {
+  flex: 1;
+  color: var(--color-paper-dim);
+  margin-top: 0.8rem;
+}
+
+.news-card__link {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 1rem;
+  color: var(--color-paper);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 3px;
+}
+
+.news-card__link:hover { color: var(--color-core); }
+
+/* Tag "Avancée du projet" (ocre) / "Diffusion & rencontres" (glacial) */
+.news-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.news-tag__dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.news-tag--progress { color: var(--color-core); }
+
+.news-tag--outreach { color: var(--color-glacial); }
+
+/* État vide : occupe toute la largeur de la grille, quel que soit le
+   nombre de colonnes que auto-fill créerait pour de vraies cartes. */
+.news-empty {
+  grid-column: 1 / -1;
+  padding: clamp(2.5rem, 6vw, 4rem) 1.5rem;
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-soft);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-paper-dim);
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.footer {
+  border-top: 1px solid var(--color-line);
+  padding-block: 3rem;
+  font-size: 0.85rem;
+  color: var(--color-paper-dim);
+}
+
+.footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.footer__logos {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+.footer__logos img { height: 28px; width: auto; }
+
+.footer__funding { max-width: 560px; }
+
+.footer__funding-logo {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  margin-bottom: 0.9rem;
+}
+
+.footer__funding-text {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 860px) {
+  .nav__links { display: none; }
+  .inst-strip { justify-content: center; }
+  /* Logos secondaires (UCLouvain/ELI) masqués ici : la bande devient trop
+     étroite pour tout accueillir sans retour à la ligne disgracieux. Le
+     drapeau UE, réglementairement prioritaire, reste visible dans le nav. */
+  .inst-strip__logo { display: none; }
+
+  .band--core { margin-left: 4%; height: 220px; }
+  .band--core__credit {
+    /* Sur mobile, la bande est bien plus étroite : un badge centré de
+       cette longueur mord sur le rayon très arrondi du capuchon gauche
+       et se retrouve rogné. On l'ancre donc par left+right (au lieu de
+       centrer) et on autorise le retour à la ligne. */
+    left: 5rem;
+    right: 0.6rem;
+    transform: none;
+    bottom: 2rem;
+    font-size: 0.58rem;
+    padding: 0.25rem 0.5rem;
+    white-space: normal;
+    text-align: right;
+  }
+  .band--models { width: 92%; margin-top: -1.5rem; height: 200px; }
+  .band--models__credit { font-size: 0.58rem; padding: 0.25rem 0.5rem; left: 0.6rem; bottom: 0.5rem; }
+  .band--intro { margin-top: -2rem; }
+}

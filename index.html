@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OCARINA — Reconstruire la circulation océanique profonde des interglaciaires passés</title>
-<meta name="description" content="OCARINA combine données paléoclimatiques (SST, δ13C) et modèle climatique LOVECLIM pour livrer la première reconstruction quantitative de la circulation océanique (AMOC) durant les interglaciaires MIS 7 et 9.">
+<meta name="description" content="OCARINA combine données paléoclimatiques (SST, δ13C) et modèle climatique LOVECLIM pour livrer la première réanalyse climatique, notamment de la circulation océanique (AMOC) durant les interglaciaires MIS 7e et 9e.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,38 +17,41 @@
 <header class="nav">
   <div class="wrap nav__inner">
     <a href="#" class="nav__brand">
-      <svg class="nav__mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="15" cy="15" r="13.5" stroke="#B8875A" stroke-width="1.4"/>
-        <path d="M4 15 C 10 8, 20 22, 26 15" stroke="#7C93A3" stroke-width="1.4" fill="none"/>
-      </svg>
-      OCARINA
+      <span data-i18n="nav_brand">OCARINA</span>
+      <span class="nav__eu-flag" role="img" data-i18n-aria="nav_eu_flag_aria" data-i18n-title="nav_eu_flag_title" aria-label="Drapeau de l'Union européenne" title="Projet financé par l'Union européenne"></span>
     </a>
 
-    <nav aria-label="Navigation principale">
+    <nav data-i18n-aria="nav_aria" aria-label="Navigation principale">
       <ul class="nav__links">
-        <li><a href="#projet">Le projet</a></li>
-        <li><a href="#methodologie">Méthodologie</a></li>
-        <li><a href="#equipe">Équipe</a></li>
-        <li><a href="#publications">Publications</a></li>
-        <li><a href="#actualites">Actualités</a></li>
+        <li><a href="#projet" data-i18n="nav_projet">Le projet</a></li>
+        <li><a href="#methodologie" data-i18n="nav_methodologie">Méthodologie</a></li>
+        <li><a href="#equipe" data-i18n="nav_equipe">Équipe</a></li>
+        <li><a href="#publications" data-i18n="nav_publications">Publications</a></li>
+        <li><a href="#actualites" data-i18n="nav_actualites">Actualités</a></li>
       </ul>
     </nav>
 
     <div class="nav__right">
-      <div class="lang-toggle" role="group" aria-label="Langue">
-        <button type="button" aria-pressed="true">FR</button>
-        <button type="button" aria-pressed="false" disabled title="Bientôt disponible">EN</button>
+      <div class="lang-toggle" role="group" data-i18n-aria="nav_lang_aria" aria-label="Langue">
+        <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="en" aria-pressed="false" disabled title="Bientôt disponible">EN</button>
       </div>
-      <a href="#contact" class="btn btn--outline">Contact</a>
+      <a href="#contact" class="btn btn--outline" data-i18n="nav_contact">Contact</a>
     </div>
   </div>
 </header>
 
 <!-- Bandeau institutionnel (logos à intégrer : UE, MSCA, UCLouvain) -->
-<div class="inst-strip" aria-label="Financement et institution d'accueil">
-  <span>Financé par l'Union européenne — MSCA</span>
-  <span>·</span>
-  <span>UCLouvain — Earth &amp; Life Institute</span>
+<div class="inst-strip" data-i18n-aria="inst_aria" aria-label="Financement et institution d'accueil">
+  <div class="inst-strip__logos">
+    <img class="inst-strip__logo" src="assets/logo_uclouvain.png" data-i18n-alt="inst_uclouvain_logo_alt" alt="Logo UCLouvain">
+    <img class="inst-strip__logo" src="assets/logo_eli_transparent.png" data-i18n-alt="inst_eli_logo_alt" alt="Logo Earth and Life Institute">
+  </div>
+  <div class="inst-strip__text">
+    <span data-i18n="inst_funded_text">Financé par l'Union européenne — MSCA</span>
+    <span>·</span>
+    <span data-i18n="inst_uclouvain_eli_text">UCLouvain — Earth &amp; Life Institute</span>
+  </div>
 </div>
 
 <!-- Frise de progression, rappel discret de l'échelle temporelle -->
@@ -64,32 +67,36 @@
     <!-- Bande 1 : carottes sédimentaires — entre depuis la droite -->
     <div class="band band--core" aria-hidden="false">
       <div class="band--core__media">
-        <!-- TODO : remplacer par une vraie photo macro de carotte sédimentaire (IODP / ECORD, vérifier licence + crédit) -->
-        <span class="band--core__placeholder">Photo carotte sédimentaire — à intégrer</span>
+        <img class="band--core__img" src="assets/carotte.jpg" data-i18n-alt="hero_core_photo_alt" alt="Carotte de sédiment marin prélevée lors de la mission AMARYLLIS-AMAGAS, montrant les strates sédimentaires successives.">
+        <span class="band--core__credit" data-i18n="hero_core_credit">© Anaïs Duhayon — mission AMARYLLIS-AMAGAS</span>
       </div>
     </div>
 
-    <!-- Bande 2 : grille de sorties de modèles (ensemble de particules) — entre depuis la gauche -->
+    <!-- Bande 2 : fond vidéo animé (courants océaniques, modèle ECCO2) — entre depuis la gauche -->
     <div class="band band--models">
-      <div class="band--models__grid" id="ensembleGrid" aria-hidden="true">
-        <!-- généré en JS : petites projections stylisées représentant l'ensemble de simulations -->
+      <div class="band--models__grid" id="ensembleGrid">
+        <video class="band--models__video" id="modelsVideo" autoplay muted loop playsinline aria-hidden="true" poster="assets/video/model-currents-poster.jpg">
+          <source src="assets/video/model-currents.webm" type="video/webm">
+          <source src="assets/video/model-currents.mp4" type="video/mp4">
+          <span data-i18n="hero_video_fallback">Votre navigateur ne prend pas en charge la lecture vidéo intégrée.</span>
+        </video>
+        <span class="band--models__credit" data-i18n="hero_video_credit">NASA/Goddard Space Flight Center Scientific Visualization Studio — modèle ECCO2 (NASA/JPL)</span>
       </div>
     </div>
 
     <!-- Bande 3 : nom du projet + descriptif -->
     <div class="band band--intro">
       <div class="band--intro__inner">
-        <p class="eyebrow">Bourse MSCA Postdoctoral Fellowship — UCLouvain</p>
-        <h1>OCARINA relie les <em>données</em> et les <em>modèles</em> pour reconstruire l'océan profond du passé.</h1>
-        <p>
-          En intégrant des reconstructions haute résolution de température de surface et de δ13C
-          dans le modèle climatique LOVECLIM par assimilation de données, le projet livre la
-          première reconstruction quantitativement contrainte de la circulation méridienne
-          atlantique (AMOC) durant les interglaciaires chauds MIS 7 et 9.
+        <h1 data-i18n="hero_title">OCARINA relie les <em>données</em> et les <em>modèles</em> pour reconstruire l'océan profond du passé.</h1>
+        <p data-i18n="hero_text">
+          En intégrant des reconstructions haute résolution de température de surface et de ventilation des eaux
+          profondes dans le modèle climatique LOVECLIM par assimilation de données, le projet livre la
+          première simulation, contrainte par des reconstructions, de la circulation méridienne
+          de retournement atlantique (AMOC) durant les interglaciaires chauds MIS 7e et 9e.
         </p>
         <div class="band--intro__actions">
-          <a href="#projet" class="btn btn--outline">Découvrir le projet</a>
-          <a href="#methodologie" class="btn btn--text">Voir la méthodologie →</a>
+          <a href="#projet" class="btn btn--outline" data-i18n="hero_cta_projet">Découvrir le projet</a>
+          <a href="#methodologie" class="btn btn--text" data-i18n="hero_cta_methodo">Voir la méthodologie →</a>
         </div>
       </div>
     </div>
@@ -101,24 +108,381 @@
 <section class="timeline-section" id="contexte">
   <div class="wrap">
     <div class="timeline-section__head">
-      <p class="eyebrow">Contexte</p>
-      <h2>800 000 ans de climat, deux fenêtres d'étude, un présent hors norme.</h2>
-      <p>
-        MIS 7 et MIS 9 comptent parmi les périodes les plus chaudes des derniers 800 000 ans,
-        avec des niveaux d'insolation et de CO2 parmi les plus élevés de la période. Elles
-        offrent des analogues naturels pour comprendre la sensibilité de l'AMOC — alors que
-        le forçage actuel dépasse déjà tout ce que ces interglaciaires ont connu.
-      </p>
+      <div class="timeline-section__head-text">
+        <p class="eyebrow" data-i18n="contexte_eyebrow">Contexte</p>
+        <h2 data-i18n="contexte_title">800 000 ans de climat, deux fenêtres d'étude, un présent déjà hors norme.</h2>
+        <p data-i18n="contexte_text">
+          Les MIS 7e et MIS 9e comptent parmi les périodes les plus chaudes des derniers 800 000 ans,
+          portées par des forçages distincts, orbital pour l'une, CO<sub>2</sub> pour l'autre. Elles offrent des analogues
+          naturels pour comprendre la sensibilité de l'AMOC, alors que le CO<sub>2</sub> actuel dépasse déjà tout ce que ces
+          interglaciaires ont connu.
+        </p>
+      </div>
+      <dl class="timeline-section__stats">
+        <div>
+          <dt data-i18n="contexte_stat1_value">800 000 ans</dt>
+          <dd data-i18n="contexte_stat1_label">de couverture climatique</dd>
+        </div>
+        <div>
+          <dt data-i18n="contexte_stat2_value">MIS 7e &amp; 9e</dt>
+          <dd data-i18n="contexte_stat2_label">fenêtres d'étude</dd>
+        </div>
+        <div>
+          <dt data-i18n="contexte_stat3_value">1ère réanalyse</dt>
+          <dd data-i18n="contexte_stat3_label">avantage des reconstructions et modèlisations</dd>
+        </div>
+      </dl>
     </div>
 
     <div class="timeline-chart">
       <svg id="timelineSvg" viewBox="0 0 1000 260" preserveAspectRatio="none" role="img"
-           aria-label="Schéma d'évolution du CO2 et de la température sur 800 000 ans, mettant en évidence MIS 7, MIS 9 et le pic actuel">
+           data-i18n-aria="contexte_svg_aria"
+           aria-label="Schéma d'évolution du CO2 et de la température sur 800 000 ans, mettant en évidence MIS 7e, MIS 9e et le pic actuel">
         <!-- généré / affiné en JS -->
       </svg>
-      <p class="timeline-chart__caption">
-        Schéma illustratif — à remplacer par les synthèses SST / CO2 réelles (EPICA Dome C, compilations MIS 7 &amp; 9). MIS 9 : 340–315 ka · MIS 7 : 250–230 ka.
+      <p class="timeline-chart__caption" data-i18n="contexte_caption">
+        Courbe de CO<sub>2</sub> atmosphérique reconstruit à partir de carottes de glace, échelle d'âge AICC2012. Source : Bereiter et al. (2015).
       </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECTION LE PROJET ================= -->
+<section class="project-section" id="projet">
+  <div class="wrap">
+
+    <!-- Panel d'identité du projet -->
+    <div class="project-identity">
+      <div class="project-identity__text">
+        <p class="eyebrow" data-i18n="projet_identity_eyebrow">MSCA Postdoctoral Fellowship 2025</p>
+        <h2 class="project-identity__title">
+          <span data-i18n="projet_identity_title">OCARINA</span>
+          <span class="project-identity__acronym" data-i18n="projet_identity_acronym">Ocean Circulation AcRoss Interglacials and deglacIatioNs through a reAnalysis framework</span>
+        </h2>
+        <p data-i18n="projet_identity_text">
+          Ce projet a été lauréat de l'appel MSCA Postdoctoral Fellowships 2025 de l'Union
+          européenne, et est hébergé à l'Earth and Life Institute de l'UCLouvain.
+        </p>
+      </div>
+      <div class="project-identity__logo">
+        <img src="assets/EN_fundedbyEU_VERTICAL_RGB_POS.png" data-i18n-alt="projet_identity_logo_alt" alt="Logo — Financé par l'Union européenne">
+      </div>
+    </div>
+
+    <!-- Paragraphe innovation -->
+    <p class="project-innovation" data-i18n="projet_innovation_text">
+      OCARINA innove en couplant pour la première fois les données de température de surface de l'eau
+      (SST) et les traceurs de ventilation des eaux profondes (δ<sup>13</sup>C) au sein d'un même cadre
+      d'assimilation. Contrairement aux approches 'hors ligne' couramment utilisées en
+      paléoclimatologie, l'assimilation 'en ligne' met à jour le modèle en cours de
+      simulation. Cela garantit un ajustement (en surface comme en profondeur) de la simulation
+      à pas de temps réguliers, permettant de garder la physique du modèle pendant l'assimilation.
+    </p>
+
+    <!-- RO1 : texte à gauche, image à droite -->
+    <div class="ro-block reveal" data-reveal>
+      <div class="ro-block__text">
+        <p class="eyebrow" data-i18n="projet_ro1_eyebrow">Objectif 1</p>
+        <h3 data-i18n="projet_ro1_title">Évaluer le modèle, avec et sans assimilation</h3>
+        <p data-i18n="projet_ro1_text">
+          Nous comparerons les simulations LOVECLIM avec et sans assimilation en
+          ligne, pour établir un point de référence et mesurer précisément ce que l'assimilation
+          apporte à la représentation de la circulation profonde.
+        </p>
+      </div>
+      <div class="ro-block__media">
+        <img src="assets/RO1.png" data-i18n-alt="projet_ro1_img_alt" alt="Illustration humoristique d'un chercheur comparant deux cartes mondiales de température de surface affichées sur deux écrans, sous le titre « Spot the differences », symbolisant la comparaison entre simulations avec et sans assimilation.">
+      </div>
+    </div>
+
+    <!-- RO2 : image à gauche, texte à droite -->
+    <div class="ro-block reveal" data-reveal>
+      <div class="ro-block__media">
+        <img src="assets/RO2.png" data-i18n-alt="projet_ro2_img_alt" alt="Illustration humoristique d'un chercheur poussant physiquement les mots « model » et « Data » l'un contre l'autre dans un écran, symbolisant le couplage des données dans le modèle par assimilation.">
+      </div>
+      <div class="ro-block__text">
+        <p class="eyebrow" data-i18n="projet_ro2_eyebrow">Objectif 2</p>
+        <h3 data-i18n="projet_ro2_title">Produire la première réanalyse en ligne d'un interglaciaire</h3>
+        <p data-i18n="projet_ro2_text">
+          En intégrant en temps réel les données de SST et de δ<sup>13</sup>C
+          dans le modèle, OCARINA construit la première reconstruction dynamiquement
+          cohérente de la circulation océanique profonde pour le MIS 7e ou MIS 9e et
+          leur déglaciation associée.
+        </p>
+      </div>
+    </div>
+
+    <!-- RO3 : texte à gauche, image à droite -->
+    <div class="ro-block reveal" data-reveal>
+      <div class="ro-block__text">
+        <p class="eyebrow" data-i18n="projet_ro3_eyebrow">Objectif 3</p>
+        <h3 data-i18n="projet_ro3_title">Identifier les mécanismes physiques des variations de l'AMOC</h3>
+        <p data-i18n="projet_ro3_text">
+          À partir de la réanalyse, nous cherchons à isoler les mécanismes responsables
+          des grands changements de circulation, comme le retrait de la banquise, les gradients de
+          densité, le régimes de vents. Cela permettra de mieux comprendre leur sensibilité aux
+          forçages radiatifs naturels et de mieux anticiper son évolution future.
+        </p>
+      </div>
+      <div class="ro-block__media">
+        <img src="assets/RO3.png" data-i18n-alt="projet_ro3_img_alt" alt="Illustration humoristique d'un chercheur pensif face à un écran affichant plusieurs graphiques scientifiques (anomalies de température, précipitations, rétroaction nuageuse, bilan énergétique) et une liste de mécanismes physiques possibles, symbolisant la recherche des mécanismes responsables des variations climatiques.">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= SECTION MÉTHODOLOGIE ================= -->
+<section class="method-section" id="methodologie">
+  <div class="wrap">
+
+    <!-- Bloc 1 : Les données -->
+    <div class="method-block reveal" data-reveal>
+      <p class="eyebrow" data-i18n="methodo_data_eyebrow">Les données</p>
+      <h2 data-i18n="methodo_data_title">Deux synthèses inédites, déjà publiées</h2>
+      <p data-i18n="methodo_data_text">
+        OCARINA s'appuie sur deux synthèses de température de surface de l'océan (SST) que j'ai
+        réalisées durant mon précédent postdoctorat, couvrant le MIS 9
+        (<a href="https://doi.org/10.5194/cp-21-1895-2025" target="_blank" rel="noopener">Stevenard et al., 2025</a>)
+        et le MIS 7
+        (<a href="https://doi.org/10.5194/cp-22-1223-2026" target="_blank" rel="noopener">Legrain et al., 2026</a>).
+        Les enregistrements ont été harmonisés sur la chronologie de précision basée sur les travaux
+        de carottes de glace Antarctique (AICC2023), recalibrés selon une approche bayésienne ou Monte
+        Carlo commune à chaque proxy, et exprimés en anomalies de température par rapport à la
+        période pré-industrielle (ici, 1870-1899 CE). Les données de δ<sup>13</sup>C, qui documentent
+        la ventilation des eaux profondes, ne sont pas encore publiées mais seront
+        compilées aux mêmes sites que les SST, avec toutefois une couverture plus restreinte.
+      </p>
+      <div class="pros-cons">
+        <div class="pros-cons__col">
+          <p class="pros-cons__label" data-i18n="methodo_data_pros_label">Points forts</p>
+          <ul>
+            <li data-i18n="methodo_data_pros_1">Mesures directes (« vérité terrain »)</li>
+            <li data-i18n="methodo_data_pros_2">Reconstructions fiables une fois recalibrés</li>
+            <li data-i18n="methodo_data_pros_3">Incertitudes bien quantifiées</li>
+          </ul>
+        </div>
+        <div class="pros-cons__col pros-cons__col--limits">
+          <p class="pros-cons__label" data-i18n="methodo_data_cons_label">Limites</p>
+          <ul>
+            <li data-i18n="methodo_data_cons_1">Couverture géographique inégale et localisée</li>
+            <li data-i18n="methodo_data_cons_2">Résolution temporelle parfois limitée</li>
+            <li data-i18n="methodo_data_cons_3">Certaines mesures issues de campagnes de laboratoire anciennes et hétérogènes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-chart method-visual">
+        <img class="method-visual__img" src="assets/map_mis9_recolored.svg" data-i18n-alt="methodo_data_map_alt" alt="Carte de localisation des sites de la synthèse de température de surface MIS 9, points de données colorés sur fond de contours continentaux clairs.">
+        <p class="timeline-chart__caption" data-i18n="methodo_data_caption">
+          Localisation des enregistrements de la synthèse MIS 9. Figure adaptée de
+          Stevenard et al. (2025), Climate of the Past.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bloc 2 : Le modèle -->
+    <div class="method-block reveal" data-reveal>
+      <p class="eyebrow" data-i18n="methodo_model_eyebrow">Le modèle</p>
+      <h2 data-i18n="methodo_model_title">LOVECLIM : modèle de complexité intermédiaire</h2>
+      <p data-i18n="methodo_model_text">
+        OCARINA s'appuie sur LOVECLIM, un modèle climatique de complexité intermédiaire
+        (EMIC). Sa rapidité (environ 250 années simulées par jour sur un seul
+        processeur) rend possible ce qu'aucun modèle complet ne permet à ce coût :
+        faire tourner de larges ensembles de simulations sur des échelles de temps
+        multi-millénaires, tout en conservant les rétroactions climatiques essentielles
+        entre océan, atmosphère et glace de mer.
+      </p>
+      <div class="pros-cons">
+        <div class="pros-cons__col">
+          <p class="pros-cons__label" data-i18n="methodo_model_pros_label">Points forts</p>
+          <ul>
+            <li data-i18n="methodo_model_pros_1">Simulations rapides (~250 ans simulés/jour)</li>
+            <li data-i18n="methodo_model_pros_2">Permet de grands ensembles sur des échelles multi-millénaires</li>
+            <li data-i18n="methodo_model_pros_3">Conserve les rétroactions océan-atmosphère-glace essentielles</li>
+          </ul>
+        </div>
+        <div class="pros-cons__col pros-cons__col--limits">
+          <p class="pros-cons__label" data-i18n="methodo_model_cons_label">Limites</p>
+          <ul>
+            <li data-i18n="methodo_model_cons_1">Résolution et physique plus grossières qu'un modèle complet</li>
+            <li data-i18n="methodo_model_cons_2">Certains processus fins (tourbillons, échelle régionale) ne sont pas résolus</li>
+            <li data-i18n="methodo_model_cons_3">Résultats parfois différents des reconstructions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloc 3 : L'assimilation -->
+    <div class="method-block reveal" data-reveal>
+      <p class="eyebrow" data-i18n="methodo_assim_eyebrow">L'assimilation</p>
+      <h2 data-i18n="methodo_assim_title">Le meilleur des deux mondes</h2>
+      <p data-i18n="methodo_assim_text">
+        Un filtre particulaire fait tourner plusieurs dizaines de simulations en
+        parallèle appelées « particules », qui représentent chacune une trajectoire possible du climat.
+        À intervalles réguliers, chaque particule est comparée aux données réelles
+        disponibles (SST, δ<sup>13</sup>C) : celles qui s'en approchent le plus voient leur poids
+        augmenter, les autres sont progressivement éliminées et remplacées. Se
+        concentrer sur un seul modèle plutôt que plusieurs permet justement de produire
+        facilement ces grands ensembles en ligne, condition indispensable au filtre
+        particulaire. Résultat : une reconstruction qui a la couverture globale et la
+        cohérence physique d'un modèle, mais contrainte à chaque étape par la réalité
+        des reconstructions.
+      </p>
+      <div class="timeline-chart method-visual">
+        <div class="assim-crossfade" id="assimCrossfade">
+          <img class="assim-crossfade__img is-active" src="assets/obs_recolored.png" data-label="Reconstructions" data-label-en="Reconstructions" data-i18n-alt="methodo_assim_obs_alt" alt="Carte des observations de température de surface disponibles à un instant donné, points de mesure épars sur fond transparent.">
+          <img class="assim-crossfade__img" src="assets/model_ensemble_recolored.png" data-label="Ensemble du modèle" data-label-en="Ensemble du modèle" data-i18n-alt="methodo_assim_model_alt" alt="Carte de l'ensemble des simulations du modèle LOVECLIM avant assimilation, montrant la dispersion des trajectoires possibles.">
+          <img class="assim-crossfade__img" src="assets/weighted_ensemble_recolored.png" data-label="Ensemble pondéré (après assimilation)" data-label-en="Ensemble pondéré (après assimilation)" data-i18n-alt="methodo_assim_weighted_alt" alt="Carte de l'ensemble de simulations repondéré après assimilation des observations, la dispersion des trajectoires étant resserrée autour des données réelles.">
+          <p class="assim-crossfade__label" id="assimCrossfadeLabel"></p>
+        </div>
+      </div>
+    </div>
+
+    <p class="method-outro" data-i18n="methodo_outro">
+      Suivez le déroulé du projet au fil de l'eau sur la page
+      <a href="#actualites">Actualités</a> !
+    </p>
+
+  </div>
+</section>
+
+<!-- ================= SECTION ÉQUIPE ================= -->
+<section class="team-section" id="equipe">
+  <div class="wrap">
+
+    <!-- Sous-section Encadrement : lignes horizontales, texte + petite photo -->
+    <div class="team-group">
+      <p class="eyebrow" data-i18n="equipe_encadrement_eyebrow">Encadrement du projet</p>
+      <div class="team-rows">
+
+        <div class="team-row reveal" data-reveal>
+          <div class="team-row__text">
+            <h3 class="team-row__name" data-i18n="equipe_nathan_name">Nathan Stevenard</h3>
+            <p class="team-row__role" data-i18n="equipe_nathan_role">Porteur du projet — MSCA Postdoctoral Fellow</p>
+            <p class="team-row__bio" data-i18n="equipe_nathan_bio">
+              Nathan Stevenard est chercheur postdoctoral à l'UCLouvain et porte le
+              projet OCARINA. Spécialiste de la reconstruction de la circulation
+              océanique passée à partir de carottes sédimentaires, il a mené des
+              recherches en paléocéanographie en France et en Belgique, combinant
+              mesures de terrain, compilations de données et modélisation climatique.
+            </p>
+            <a class="team-row__link" href="https://nathstevenard.github.io/" target="_blank" rel="noopener" data-i18n="equipe_site_link">Site personnel →</a>
+          </div>
+          <div class="team-row__photo">
+            <img src="assets/Nathan_Stevenard.jpeg" data-i18n-alt="equipe_nathan_photo_alt" alt="Portrait de Nathan Stevenard">
+          </div>
+        </div>
+
+        <div class="team-row reveal" data-reveal>
+          <div class="team-row__text">
+            <h3 class="team-row__name" data-i18n="equipe_hugues_name">Hugues Goosse</h3>
+            <p class="team-row__role" data-i18n="equipe_hugues_role">Superviseur principal — ELIC, UCLouvain</p>
+            <p class="team-row__bio" data-i18n="equipe_hugues_bio">
+              Hugues Goosse fait partie de l'équipe Earth and Climate (ELIC) à
+              l'UCLouvain et co-encadre OCARINA. Figure reconnue de l'assimilation de
+              données en paléoclimatologie, il a co-développé les modèles LOVECLIM et
+              NEMO et contribué à plusieurs groupes de travail, notamment PMIP,
+              PAGES ou le GIEC. Auteur de plus de 230 articles scientifiques, il a
+              encadré une cinquantaine d'étudiants en master et une trentaine de
+              doctorants et post-doctorants.
+            </p>
+            <a class="team-row__link" href="https://www.elic.ucl.ac.be/index.php?id=78" target="_blank" rel="noopener" data-i18n="equipe_site_link">Site personnel →</a>
+          </div>
+          <div class="team-row__photo">
+            <img src="assets/Hugues_Goosse.jpg" data-i18n-alt="equipe_hugues_photo_alt" alt="Portrait de Hugues Goosse">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sous-section Collaborateurs externes : traitement allégé, sans photo -->
+    <div class="team-group reveal" data-reveal>
+      <p class="eyebrow" data-i18n="equipe_collab_eyebrow">Collaborateurs externes</p>
+      <ul class="collab-list">
+        <li class="collab-list__item">
+          <a class="collab-list__name" href="https://www.elic.ucl.ac.be/index.php?id=254" target="_blank" rel="noopener" data-i18n="equipe_collab1_name">Qiuzhen Yin</a>
+          <span class="collab-list__affiliation" data-i18n="equipe_collab1_affiliation">UCLouvain, Belgique</span>
+          <p class="collab-list__expertise" data-i18n="equipe_collab1_expertise">Modélisation des interglaciaires et dynamique océanique avec LOVECLIM</p>
+        </li>
+        <li class="collab-list__item">
+          <a class="collab-list__name" href="https://pagesperso.locean-ipsl.upmc.fr/claire.waelbroeck/" target="_blank" rel="noopener" data-i18n="equipe_collab2_name">Claire Waelbroeck</a>
+          <span class="collab-list__affiliation" data-i18n="equipe_collab2_affiliation">CNRS, LOCEAN, France</span>
+          <p class="collab-list__expertise" data-i18n="equipe_collab2_expertise">Dynamique océanique et assimilation de données avec des modèles de complexité intermédiaire</p>
+        </li>
+        <li class="collab-list__item">
+          <a class="collab-list__name" href="https://www.ige-grenoble.fr/-Membres-de-l-equipe-259-" target="_blank" rel="noopener" data-i18n="equipe_collab3_name">Emilie Capron</a>
+          <span class="collab-list__affiliation" data-i18n="equipe_collab3_affiliation">CNRS, IGE, France</span>
+          <p class="collab-list__expertise" data-i18n="equipe_collab3_expertise">Harmonisation des proxys paléoclimatiques et reconstructions des interglaciaires</p>
+        </li>
+        <li class="collab-list__item">
+          <a class="collab-list__name" href="https://www.unsw.edu.au/staff/laurie-menviel" target="_blank" rel="noopener" data-i18n="equipe_collab4_name">Laurie Menviel</a>
+          <span class="collab-list__affiliation" data-i18n="equipe_collab4_affiliation">UNSW, Australie</span>
+          <p class="collab-list__expertise" data-i18n="equipe_collab4_expertise">Circulation océanique, paléoclimat et modélisation isotopique</p>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= SECTION PUBLICATIONS ================= -->
+<section class="publications-section" id="publications">
+  <div class="wrap">
+    <div class="publications-empty reveal" data-reveal>
+      <p class="eyebrow" data-i18n="pub_eyebrow">Publications</p>
+      <h2 data-i18n="pub_title">Les publications du projet arrivent bientôt</h2>
+      <p data-i18n="pub_text">
+        Le projet démarre prochainement : les publications associées au projet OCARINA seront
+        ajoutées ici au fur et à mesure. En attendant, mes travaux antérieurs
+        sont disponibles sur
+        <a href="https://scholar.google.com/citations?user=fk7YLYIAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">Google Scholar</a>
+        et
+        <a href="https://orcid.org/0000-0002-1838-9291" target="_blank" rel="noopener">ORCID</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECTION ACTUALITÉS ================= -->
+<section class="news-section" id="actualites">
+  <div class="wrap">
+    <div class="news-intro reveal" data-reveal>
+      <p class="eyebrow" data-i18n="actu_eyebrow">Actualités</p>
+      <h2 data-i18n="actu_title">Le fil du projet</h2>
+      <p data-i18n="actu_intro_text">Les avancées scientifiques, rencontres et interventions publiques sont ajoutées au fil de l'eau.</p>
+    </div>
+
+    <div class="news-grid">
+      <div class="news-empty reveal" data-reveal data-i18n="actu_empty_text">
+        Rien à afficher pour l'instant : les premières actualités seront publiées bientôt.
+      </div>
+
+      <!--
+      Modèle de carte actualité — dupliquer ce bloc <article> pour chaque
+      nouvelle entrée, en le sortant du commentaire. Deux exemples ci-dessous
+      montrent les deux variantes de tag côte à côte (avec et sans image/lien) :
+
+      <article class="news-card reveal" data-reveal>
+        <div class="news-card__body">
+          <p class="news-card__date">Septembre 2026</p>
+          <p class="news-tag news-tag--progress"><span class="news-tag__dot"></span>Avancée du projet</p>
+          <h3 class="news-card__title">Arrivée à l'UCLouvain</h3>
+          <p class="news-card__text">Premiers pas dans l'équipe ELIC et lancement des simulations LOVECLIM de référence, sans assimilation.</p>
+        </div>
+      </article>
+
+      <article class="news-card reveal" data-reveal>
+        <img class="news-card__img" src="assets/actualite-exemple.jpg" alt="Décrire ici la photo de l'actualité">
+        <div class="news-card__body">
+          <p class="news-card__date">Octobre 2026</p>
+          <p class="news-tag news-tag--outreach"><span class="news-tag__dot"></span>Diffusion &amp; rencontres</p>
+          <h3 class="news-card__title">Présentation au séminaire ELIC</h3>
+          <p class="news-card__text">Présentation des premiers résultats du projet devant l'équipe Earth and Climate de l'UCLouvain.</p>
+          <a class="news-card__link" href="#" target="_blank" rel="noopener">En savoir plus →</a>
+        </div>
+      </article>
+      -->
     </div>
   </div>
 </section>
@@ -128,18 +492,27 @@
 <footer class="footer" id="contact">
   <div class="wrap footer__grid">
     <div>
-      <p class="eyebrow">OCARINA</p>
-      <p style="margin-top:0.5rem;">Earth and Life Institute — UCLouvain<br>Louvain-la-Neuve, Belgique</p>
+      <p class="eyebrow" data-i18n="footer_brand">OCARINA</p>
+      <div class="footer__logos">
+        <img src="assets/logo_uclouvain.png" data-i18n-alt="footer_uclouvain_logo_alt" alt="Logo UCLouvain">
+        <img src="assets/logo_eli_transparent.png" data-i18n-alt="footer_eli_logo_alt" alt="Logo Earth and Life Institute">
+      </div>
+      <p style="margin-top:0.5rem;" data-i18n="footer_address">Earth and Life Institute — UCLouvain<br>Louvain-la-Neuve, Belgique</p>
     </div>
     <div class="footer__funding">
-      <!-- TODO : texte de financement officiel MSCA + emblème UE conforme aux
-           règles de visibilité Horizon Europe (taille min., zone de protection) -->
-      Ce projet a reçu un financement du programme de recherche et d'innovation
-      de l'Union européenne au titre des actions Marie Skłodowska-Curie.
+      <img class="footer__funding-logo" src="assets/EN_FundedbytheEU_RGB_POS.png" data-i18n-alt="footer_funding_logo_alt" alt="Logo — Funded by the European Union">
+      <p class="footer__funding-text" data-i18n="footer_funding_text">
+        Funded by the European Union. Views and opinions expressed are however
+        those of the author(s) only and do not necessarily reflect those of the
+        European Union or the European Research Executive Agency (REA). Neither
+        the European Union nor the granting authority can be held responsible
+        for them.
+      </p>
     </div>
   </div>
 </footer>
 
+<script src="js/content.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
