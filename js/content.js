@@ -107,6 +107,7 @@ const content = {
           densité, le régimes de vents. Cela permettra de mieux comprendre leur sensibilité aux
           forçages radiatifs naturels et de mieux anticiper son évolution future.`,
     projet_ro3_img_alt: `Illustration humoristique d'un chercheur pensif face à un écran affichant plusieurs graphiques scientifiques (anomalies de température, précipitations, rétroaction nuageuse, bilan énergétique) et une liste de mécanismes physiques possibles, symbolisant la recherche des mécanismes responsables des variations climatiques.`,
+    projet_ro_ai_credit: `Illustration générée par IA (OpenAI)`,
 
     // ---------- Section "Méthodologie" ----------
     methodo_data_eyebrow: `Les données`,
@@ -233,13 +234,15 @@ const content = {
     footer_uclouvain_logo_alt: `Logo UCLouvain`,
     footer_eli_logo_alt: `Logo Earth and Life Institute`,
     footer_address: `Earth and Life Institute — UCLouvain<br>Louvain-la-Neuve, Belgique`,
+    footer_contact_label: `Contact`,
     footer_funding_logo_alt: `Logo — Funded by the European Union`,
     // Texte légal officiel imposé (Horizon Europe) : jamais traduit, identique fr/en.
     footer_funding_text: `Funded by the European Union. Views and opinions expressed are however
         those of the author(s) only and do not necessarily reflect those of the
         European Union or the European Research Executive Agency (REA). Neither
         the European Union nor the granting authority can be held responsible
-        for them.`
+        for them.`,
+    footer_ai_credit: `Ce site a été conçu avec l'assistance de Claude (Anthropic).`
   },
 
     en: {
@@ -324,6 +327,7 @@ const content = {
           help us better understand their sensitivity to natural radiative forcing and better anticipate
           its future evolution.`,
     projet_ro3_img_alt: `Humorous illustration of a pensive researcher facing a screen displaying several scientific graphs (temperature anomalies, precipitation, cloud feedback, energy balance) and a list of possible physical mechanisms, symbolising the search for the mechanisms behind climate variations.`,
+    projet_ro_ai_credit: `AI-generated illustration (OpenAI)`,
 
     methodo_data_eyebrow: `The data`,
     methodo_data_title: `Two new syntheses, already published`,
@@ -438,11 +442,13 @@ const content = {
     footer_uclouvain_logo_alt: `UCLouvain logo`,
     footer_eli_logo_alt: `Earth and Life Institute logo`,
     footer_address: `Earth and Life Institute — UCLouvain<br>Louvain-la-Neuve, Belgium`,
+    footer_contact_label: `Contact`,
     footer_funding_logo_alt: `Logo — Funded by the European Union`,
     footer_funding_text: `Funded by the European Union. Views and opinions expressed are however
         those of the author(s) only and do not necessarily reflect those of the
         European Union or the European Research Executive Agency (REA). Neither
         the European Union nor the granting authority can be held responsible
-        for them.`
+        for them.`,
+    footer_ai_credit: `This site was built with the assistance of Claude (Anthropic).`
   }
 };

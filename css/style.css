@@ -710,6 +710,7 @@ h1, h2, h3 {
 }
 
 .ro-block__media {
+  position: relative;
   flex: 1 1 50%;
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-soft);
@@ -722,6 +723,24 @@ h1, h2, h3 {
   object-fit: cover;
 }
 
+.ro-block__credit {
+  /* Même traitement visuel que .band--core__credit, ancré en bas à droite
+     de l'image plutôt que centré : ces images n'ont pas de capuchon
+     arrondi qui viendrait rogner un badge de coin. */
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--color-paper);
+  background: rgba(18, 17, 16, 0.62);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
 @media (max-width: 860px) {
   .project-identity { flex-direction: column; align-items: stretch; }
   .project-identity__logo img { max-width: 160px; margin-inline: auto; }
@@ -729,6 +748,7 @@ h1, h2, h3 {
   .ro-block { flex-direction: column; align-items: stretch; }
   .ro-block__text { order: 1; }
   .ro-block__media { order: 2; }
+  .ro-block__credit { font-size: 0.6rem; padding: 0.25rem 0.5rem; right: 0.5rem; bottom: 0.5rem; }
 }
 
 /* ============================================================
@@ -1177,6 +1197,23 @@ h1, h2, h3 {
 
 .footer__logos img { height: 28px; width: auto; }
 
+.footer__contact {
+  margin-top: 0.5rem;
+  word-break: break-word;
+}
+
+.footer__contact a {
+  color: var(--color-paper-dim);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 3px;
+}
+
+.footer__contact a:hover,
+.footer__contact a:focus-visible {
+  color: var(--color-core);
+}
+
 .footer__funding { max-width: 560px; }
 
 .footer__funding-logo {
@@ -1191,6 +1228,15 @@ h1, h2, h3 {
   margin: 0;
   font-size: 0.78rem;
   line-height: 1.6;
+}
+
+.footer__ai-credit {
+  margin: 0.9rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-line);
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--color-paper-dim);
 }
 
 /* ============================================================
