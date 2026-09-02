@@ -227,7 +227,20 @@ const content = {
     actu_eyebrow: `Actualités`,
     actu_title: `Le fil du projet`,
     actu_intro_text: `Les avancées scientifiques, rencontres et interventions publiques sont ajoutées au fil de l'eau.`,
+    // Conservé pour la réactivation de l'état vide entre deux publications
+    // (voir le bloc commenté .news-empty dans index.html).
     actu_empty_text: `Rien à afficher pour l'instant : les premières actualités seront publiées bientôt.`,
+
+    // Actualité 1 — Premier jour à l'ELIC (septembre 2026)
+    actu_post1_date: `Septembre 2026`,
+    actu_post1_tag: `Avancée du projet`,
+    actu_post1_title: `Premier jour à l'ELIC`,
+    actu_post1_text: `Le 1er septembre marque le vrai début d'OCARINA : plaque sur la porte du bureau B.480,
+        et quelques journées bien chargées en paperasse administrative avant de plonger dans la
+        vraie science. Merci à l'Union européenne et au programme Marie Skłodowska-Curie (MSCA)
+        pour la confiance, et à Hugues Goosse pour l'accueil au sein de l'équipe ELIC. Les
+        premières simulations de référence démarrent dans les prochaines semaines — la suite ici !`,
+    actu_post1_img_alt: `Plaque de bureau indiquant « B.480 — Nathan Stevenard, Earth & Climate - ELIC ».`,
 
     // ---------- Footer ----------
     footer_brand: `OCARINA`,
@@ -436,7 +449,20 @@ const content = {
     actu_eyebrow: `News`,
     actu_title: `Project updates`,
     actu_intro_text: `Scientific progress, meetings and public engagement, shared as they happen.`,
+    // Kept for re-enabling the empty state between two posts
+    // (see the commented-out .news-empty block in index.html).
     actu_empty_text: `Nothing to show yet — the first updates will be published soon.`,
+
+    // News item 1 — First day at ELIC (September 2026)
+    actu_post1_date: `September 2026`,
+    actu_post1_tag: `Project update`,
+    actu_post1_title: `First day at ELIC`,
+    actu_post1_text: `1<sup>st</sup> September marks the real start of OCARINA: a nameplate on the door of office B.480,
+        and a few busy days of administrative paperwork before diving into the real science. Thanks
+        to the European Union and the Marie Skłodowska-Curie Actions (MSCA) programme for the
+        opportunity, and to Hugues (and the others) for the warm welcome within the ELIC team.
+        More soon!`,
+    actu_post1_img_alt: `Office door plate reading "B.480 — Nathan Stevenard, Earth & Climate - ELIC".`,
 
     footer_brand: `OCARINA`,
     footer_uclouvain_logo_alt: `UCLouvain logo`,

@@ -463,35 +463,40 @@
     </div>
 
     <div class="news-grid">
+      <!--
+      État vide : réactiver ce bloc (et le sortir du commentaire) dès que la
+      grille ne contient plus aucune <article class="news-card">, entre deux
+      publications. La clé actu_empty_text est conservée dans content.js.
+
       <div class="news-empty reveal" data-reveal data-i18n="actu_empty_text">
         Rien à afficher pour l'instant : les premières actualités seront publiées bientôt.
       </div>
+      -->
 
       <!--
-      Modèle de carte actualité — dupliquer ce bloc <article> pour chaque
-      nouvelle entrée, en le sortant du commentaire. Deux exemples ci-dessous
-      montrent les deux variantes de tag côte à côte (avec et sans image/lien) :
-
-      <article class="news-card reveal" data-reveal>
-        <div class="news-card__body">
-          <p class="news-card__date">Septembre 2026</p>
-          <p class="news-tag news-tag--progress"><span class="news-tag__dot"></span>Avancée du projet</p>
-          <h3 class="news-card__title">Arrivée à l'UCLouvain</h3>
-          <p class="news-card__text">Premiers pas dans l'équipe ELIC et lancement des simulations LOVECLIM de référence, sans assimilation.</p>
-        </div>
-      </article>
-
-      <article class="news-card reveal" data-reveal>
-        <img class="news-card__img" src="assets/actualite-exemple.jpg" alt="Décrire ici la photo de l'actualité">
-        <div class="news-card__body">
-          <p class="news-card__date">Octobre 2026</p>
-          <p class="news-tag news-tag--outreach"><span class="news-tag__dot"></span>Diffusion &amp; rencontres</p>
-          <h3 class="news-card__title">Présentation au séminaire ELIC</h3>
-          <p class="news-card__text">Présentation des premiers résultats du projet devant l'équipe Earth and Climate de l'UCLouvain.</p>
-          <a class="news-card__link" href="#" target="_blank" rel="noopener">En savoir plus →</a>
-        </div>
-      </article>
+      Modèle de carte actualité — dupliquer le bloc <article> ci-dessous pour
+      chaque nouvelle entrée. Appliquer data-i18n sur chaque élément texte
+      (date, tag, titre, texte) et data-i18n-alt sur l'image, avec des clés
+      actu_postN_* définies dans content.js (fr + en). Variantes de tag :
+      .news-tag--progress (ocre, avancée du projet) ou .news-tag--outreach
+      (glacial, diffusion & rencontres). Ajouter un <a class="news-card__link">
+      en fin de body uniquement s'il y a un lien « en savoir plus ».
       -->
+      <article class="news-card reveal" data-reveal>
+        <img class="news-card__img" src="assets/carte_bureau.jpg" data-i18n-alt="actu_post1_img_alt" alt="Plaque de bureau indiquant « B.480 — Nathan Stevenard, Earth & Climate - ELIC ».">
+        <div class="news-card__body">
+          <p class="news-card__date" data-i18n="actu_post1_date">Septembre 2026</p>
+          <p class="news-tag news-tag--progress"><span class="news-tag__dot"></span><span data-i18n="actu_post1_tag">Avancée du projet</span></p>
+          <h3 class="news-card__title" data-i18n="actu_post1_title">Premier jour à l'ELIC</h3>
+          <p class="news-card__text" data-i18n="actu_post1_text">
+            Le 1er septembre marque le vrai début d'OCARINA : plaque sur la porte du bureau B.480,
+            et quelques journées bien chargées en paperasse administrative avant de plonger dans la
+            vraie science. Merci à l'Union européenne et au programme Marie Skłodowska-Curie (MSCA)
+            pour la confiance, et à Hugues (et les autres) pour l'accueil au sein de l'équipe ELIC.
+            La suite ici !
+          </p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
